@@ -16,10 +16,8 @@
 package co.touchlab.kermit
 
 class ConsoleWriter internal constructor(
-    private val messageStringFormatter: MessageStringFormatter,
-    private val console: ConsoleIntf
+    private val messageStringFormatter: MessageStringFormatter = DefaultFormatter,
 ) : LogWriter() {
-    constructor(messageStringFormatter: MessageStringFormatter = DefaultFormatter) : this(messageStringFormatter, ConsoleActual)
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
         var output = messageStringFormatter.formatMessage(
@@ -39,27 +37,12 @@ class ConsoleWriter internal constructor(
     }
 }
 
-internal interface ConsoleIntf {
-    fun error(vararg o: Any?)
-    fun warn(vararg o: Any?)
-    fun info(vararg o: Any?)
-    fun log(vararg o: Any?)
+private external interface ConsoleIntf {
+    fun error(message: String)
+    fun info(message: String)
+    fun log(message: String)
+    fun warn(message: String)
+    fun debug(message: String)
 }
 
-private object ConsoleActual : ConsoleIntf {
-    override fun error(vararg o: Any?) {
-        println(o)
-    }
-
-    override fun warn(vararg o: Any?) {
-        println(o)
-    }
-
-    override fun info(vararg o: Any?) {
-        println(o)
-    }
-
-    override fun log(vararg o: Any?) {
-        println(o)
-    }
-}
+private external val console: ConsoleIntf
