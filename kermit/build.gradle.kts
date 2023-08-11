@@ -25,6 +25,10 @@ kotlin {
         browser()
         nodejs()
     }
+    @Suppress("OPT_IN_USAGE")
+    wasm {
+        browser()
+    }
 
     macosX64()
     macosArm64()

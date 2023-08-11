@@ -25,6 +25,10 @@ kotlin {
         browser()
         nodejs()
     }
+    @Suppress("OPT_IN_USAGE")
+    wasm {
+        browser()
+    }
 
     macosX64()
     macosArm64()
@@ -77,6 +81,7 @@ kotlin {
 
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
+    val wasmMain by sourceSets.getting
 
     val nativeMain by sourceSets.creating
     nativeMain.dependsOn(commonMain)
